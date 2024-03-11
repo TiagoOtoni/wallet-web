@@ -1,6 +1,6 @@
 package com.example.walletweb.model;
 
-import com.example.walletweb.dto.AtivoAtualizaDTO;
+import com.example.walletweb.dto.AtualizaAtivoDTO;
 import com.example.walletweb.dto.CadastroAtivoDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,13 +12,14 @@ import java.util.List;
 @Table(name = "ativos")
 @Getter
 public class Ativo {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(unique = true)
     private String ticker;
+
     @Enumerated(EnumType.STRING)
     private TipoAtivo tipo;
+
     @OneToMany(mappedBy = "ativo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Compras> listaCompras = new ArrayList<>();
 
@@ -36,12 +37,10 @@ public class Ativo {
         this.tipo = cadastroAtivoDTO.tipo();
     }
 
-    public void atualizarTipo(AtivoAtualizaDTO ativoAtualizaDTO){
-        if (ativoAtualizaDTO.ticker() != null){
-            this.ticker = ativoAtualizaDTO.ticker();
-        }
-        if (ativoAtualizaDTO.tipo() != null){
-            this.tipo = ativoAtualizaDTO.tipo();
+
+    public void atualizarTipo(AtualizaAtivoDTO atualizaAtivoDTO){
+        if (atualizaAtivoDTO.tipo() != null){
+            this.tipo = atualizaAtivoDTO.tipo();
         }
 
         // somente o id em PUT, remove da lixeira
@@ -63,4 +62,5 @@ public class Ativo {
                 ;
 
     }
+
 }

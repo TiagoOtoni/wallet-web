@@ -1,5 +1,6 @@
 package com.example.walletweb.dto;
 
+import com.example.walletweb.model.Ativo;
 import com.example.walletweb.model.TipoAtivo;
 import jakarta.validation.constraints.NotBlank;
 
@@ -8,4 +9,5 @@ public record CadastroAtivoDTO(
         String ticker,
         @NotBlank
         TipoAtivo tipo) {
+
 }
